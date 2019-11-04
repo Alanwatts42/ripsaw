@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# Currently, script must be placed in the directory containing the files
+# to be unarchived.
+
+
+# echo "Please enter the path (must end with '/') of the folder to be processed: "
+# read -r dir
+# if -d "$dir";then
+#     cd "$dir" || echo "sorry, this is not a valid folder" exit
+# fi
+
+
+# shellcheck source=/home/evan/.aliases
+shellcheck -x source "$HOME/.aliases"
+
+hush () {
+    "$1" >/dev/null 2>&1
+}
+
+echo Process files in "$(pwd)"?
+dir="$(pwd)"
+printf "\n[Y/N]\n\n"
+read -r confirm
+
+if [ "$confirm" = "y" ] || [ "$confirm" = "Y" ]
+then
+    printf "\n\nextracting *.7z, .rar, and .ecm archives\n"
+    for i in "$dir"/*.7z;do
+        if 7z x "$i";then 
+            echo "successfully extracted .7z files, cleaning up"
+            rm "$i"
+        else
+            printf "\n"
+            echo "no .7z files extracted"
+        fi
+    done
+
+    printf "\n\nextracting *.zip archives\n"
+    for i in "$dir"/*.zip;do
+        if unzip "$i";then 
+            echo "successfully extracted .zip files, cleaning up"
+            rm "$i"
+        else
+            printf "\n"
+            echo "no .zip files extracted"
+            printf "\n"
+        fi
+    done
+    
+    printf "\n\nnow processing *.rar archives...\n"
+    for i in "$dir"/*.rar;do
+        if unrar x "$i";then 
+            echo "successfully extracted .rar files, cleaning up"
+            rm "$i"
+        else
+            printf "\n"
+            echo "no .rar files extracted"
+        fi
+    done
+
+    printf "\n\nnow processing *.ecm files...\n"
+    for i in "$dir"/*.ecm;do
+        if ecm-uncompress "$i";then 
+            echo "successfully extracted .ecm files"
+        else
+            printf "\n"
+            echo "no .ecm files extracted"
+        fi
+    done
+    
+    printf "\n\nall archives should be unpacked\n"
+else
+    printf "\n\nwell, when you make up your mind, run this again. Bye...\n\nweirdo."
+    exit
+fi
