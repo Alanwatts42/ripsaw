@@ -1,15 +1,6 @@
 #!/bin/bash
 
-# Currently, script must be placed in the directory containing the files
-# to be unarchived.
-
-
-# echo "Please enter the path (must end with '/') of the folder to be processed: "
-# read -r dir
-# if -d "$dir";then
-#     cd "$dir" || echo "sorry, this is not a valid folder" exit
-# fi
-
+# The easiest way to use this script is to put it in your /usr/bin/ directory and simply cd into whatever folder you want to use it in and then type 'ripsaw' which should call this script if it's in your /usr/bin/ directory and you've kept the name of the file as 'ripsaw'
 
 # shellcheck source=/home/evan/.aliases
 shellcheck -x source "$HOME/.aliases"
@@ -18,59 +9,89 @@ hush () {
     "$1" >/dev/null 2>&1
 }
 
-echo Process files in "$(pwd)"?
+# echo Process files in "$(pwd)"?
+echo You\'ve unleashed the ripsaw!!! Now processing files in "$(pwd)"...
 dir="$(pwd)"
-printf "\n[Y/N]\n\n"
-read -r confirm
+# printf "\n[Y/N]\n\n"
+# read -r confirm
+# if [ "$confirm" = "y" ] || [ "$confirm" = "Y" ]
+# then
+printf "\n\nextracting *.7z, .rar, and .ecm archives\n"
+for i in "$dir"/*.7z;do
+    if 7z x "$i";then 
+        echo "successfully extracted .7z files, cleaning up"
+        rm "$i"
+    else
+        printf "\n"
+        echo "no .7z files extracted, moving on..."
+    fi
+done
 
-if [ "$confirm" = "y" ] || [ "$confirm" = "Y" ]
-then
-    printf "\n\nextracting *.7z, .rar, and .ecm archives\n"
-    for i in "$dir"/*.7z;do
-        if 7z x "$i";then 
-            echo "successfully extracted .7z files, cleaning up"
-            rm "$i"
-        else
-            printf "\n"
-            echo "no .7z files extracted"
-        fi
-    done
+printf "\n\nextracting *.zip archives\n"
+for i in "$dir"/*.zip;do
+    if unzip "$i";then 
+        echo "successfully extracted .zip files, cleaning up"
+        rm "$i"
+    else
+        printf "\n"
+        echo "no .zip files extracted, moving on..."
+        printf "\n"
+    fi
+done
 
-    printf "\n\nextracting *.zip archives\n"
-    for i in "$dir"/*.zip;do
-        if unzip "$i";then 
-            echo "successfully extracted .zip files, cleaning up"
-            rm "$i"
-        else
-            printf "\n"
-            echo "no .zip files extracted"
-            printf "\n"
-        fi
-    done
-    
-    printf "\n\nnow processing *.rar archives...\n"
-    for i in "$dir"/*.rar;do
-        if unrar x "$i";then 
-            echo "successfully extracted .rar files, cleaning up"
-            rm "$i"
-        else
-            printf "\n"
-            echo "no .rar files extracted"
-        fi
-    done
+printf "\n\nnow processing *.rar archives...\n"
+for i in "$dir"/*.rar;do
+    if unrar x "$i";then 
+        echo "successfully extracted .rar files, cleaning up"
+        rm "$i"
+    else
+        printf "\n"
+        echo "no .rar files extracted, moving on..."
+    fi
+done
 
-    printf "\n\nnow processing *.ecm files...\n"
-    for i in "$dir"/*.ecm;do
-        if ecm-uncompress "$i";then 
-            echo "successfully extracted .ecm files"
-        else
-            printf "\n"
-            echo "no .ecm files extracted"
-        fi
-    done
-    
-    printf "\n\nall archives should be unpacked\n"
-else
-    printf "\n\nwell, when you make up your mind, run this again. Bye...\n\nweirdo."
-    exit
-fi
+printf "\n\nnow processing *.ecm files...\n"
+for i in "$dir"/*.ecm;do
+    if ecm-uncompress "$i";then 
+        echo "successfully extracted .ecm files"
+    else
+        printf "\n"
+        echo "no .ecm files extracted, moving on..."
+    fi
+done
+
+printf "\n\nnow processing *.tar files...\n"
+for i in "$dir"/*.tar;do
+    if tar -xvf "$i";then 
+        echo "successfully extracted *.tar files"
+    else
+        printf "\n"
+        echo "no *.tar files extracted, moving on..."
+    fi
+done
+
+printf "\n\nnow processing *.tar.gz files...\n"
+for i in "$dir"/*.tar.gz;do
+    if tar -zxvf "$i";then 
+        echo "successfully extracted .tar.gz files"
+    else
+        printf "\n"
+        echo "no *.tar.gz files extracted, moving on..."
+    fi
+done
+
+printf "\n\nnow processing *.tar.bz2 files...\n"
+for i in "$dir"/*.tar.bz2;do
+    if tar -jxvf "$i";then 
+        echo "successfully extracted *.tar.bz2 files"
+    else
+        printf "\n"
+        echo "no *.tar.bz2 files extracted, moving on..."
+    fi
+done
+
+printf "\n\nall archives should be unpacked\n"
+# else
+#     printf "\n\nwell, when you make up your mind, run this again. Bye...\n\nweirdo."
+exit
+# fi
