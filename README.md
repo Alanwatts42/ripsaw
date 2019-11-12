@@ -8,34 +8,33 @@
 
 At any rate, I find it useful. Basically it's a bash script that you can 
 run inside a directory to unzip or unarchive multiple zipped (archived) 
-files. It can handle multiple archive formats: .zip, .7z, .rar, and .ecm. 
-The only reason I called it ripsaw is that "rip" sounds like "zip", and 
-"saw" implies motorized or rapid motion, and because it sounds cool, does 
-it not?
+files. It can handle multiple archive formats: .zip, .7z, .rar, tar, tar.bz, tar.gz, and even .ecm.
 
 <br>
 
-## How do I use it?
+## Can I use it on my terrible computer?
 
-Right now, it will probably only work on a Linux OS or Microsoft's recent
-Linux-within-Windows software that lets you run a somewhat cut-down 
-version of multiple Linux builds inside an instance of Windows 10. Having 
-used it myself, it's not bad for some purposes, though I was never able 
-to get it to run anything with a GUI, and therefore just did everything 
-through the terminal. 
+It's a bash script, and I can only say for certain that it works on 
+the OS for which it was written, Linux. It is possible that it might run 
+on Microsoft's Linux sub-system software that lets you run a somewhat cut-
+down version of a variety of Linux builds inside Windows 10. It is 
+possible that it might run on Mac OS X (though I haven't tested it yet.) 
 
-Ripsaw does happen to be a terminal-only tool, so it will happily run on 
-your abomination of a Windows 10 machine if you install the Linux sub-
-system. 
+## How am I supposed to actually use this?
 
-You can either just run the Ripsaw script by typing out the full path to 
-it and executing it as you would with any other script, or for extra 
-credit, first make ripsaw executable using `sudo chmod + x ./ripsaw` and 
-then make it a permanent command by placing it in /usr/bin/ with `sudo 
-cp /usr/bin/ripsaw`. After you've done that, you can just `cd` into any 
-directory you want, but probably your Downloads folder, and then just 
-type `ripsaw` and press enter to run it. Then just sit back, and watch it 
-open up all of those archives. 
+Since ripsaw happens to be without a GUI at the moment, it must be run 
+rom the terminal. You can either:
+
+### Method 1 (dumb method)
+
+    - Run it by typing the full path leading to the 'ripsaw' file into the terminal and pressing 'enter' to execute it. )
+
+### Method 2 (smart method)
+
+    1. `sudo chmod +x ripsaw` - this makes ripsaw executable, just do it.
+    2. `sudo cp ripsaw /usr/bin/ripsaw` - copies ripsaw from the current directory to the directory where the user's bash commands are kept which is `/usr/bin/`. I'm assuming here that ripsaw is in the current working directory a.k.a. the folder that you 're in right now, so keep that in mind when you're following these instructions.
+    3. If you've done steps 1 and 2 correctly, all you should need to do to execute ripsaw now is to type `ripsaw` into the terminal and press `enter`. 
+    4. Remember, before you execute ripsaw, you'll want to make sure you've used `cd` to change to the directory that you want to use ripsaw in, for example: `cd ~/Downloads` would navigate you to the Downloads directory so that when you execute `ripsaw` it will proceed to slice and dice all of the archives in your Downloads directory, but that's it, have fun nerds.
 
 <br>
 
@@ -86,3 +85,39 @@ evan.sherwood@keemail.me.
 
 Enjoy, nerds.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### You can't sue me, nor should you, nor will I ever show up to court if you do.
+
+And remember, I am in no way responsible for anything you do with this 
+script, nor will I be held responsible for anything you thought this 
+script could do if in fact, it turns out that it doesn't do whatever it 
+is you thought it was going to do. If you try to come after me about 
+anything at all, whatsoever, related to this, or anything I've put up on 
+github, you will be sorely out of luck, because I have hereby declared 
+forthrightly that I am in no way, shape, or form, responsible or liable 
+for any sort of warantee, promise, gaurantee, or any synonym of any of 
+those words, which you inferred or thought was implied on anything I have 
+uploaded, becuase no such promise or gaurantee, has ever or will ever 
+exist on anything I have uploaded to this website. I make no claims, no 
+promises, and no affirmative statements of any kind, and any that you 
+choose to interpret from anything I've written or uploaded will be a 
+figment of your own imagination, and will not be upheld nor fulfilled in 
+any way by myself or anyone who may come to be associated with me in any 
+way. You are on your own, I will not support anything I put up here, and 
+if you choose to use it and it screws you somehow, that's on you, and I 
+will not be held responsible for any damages you incur, ever.
